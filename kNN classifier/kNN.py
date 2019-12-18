@@ -6,7 +6,7 @@ import sklearn.metrics.pairwise
 from collections import Counter
 
 '''
-COMMAND LINE ARGUMENTS
+COMMAND LINE
 <training data> <test data> <k value> <similarity func>  
 training and test data: .txt files
 k value: int > 0
@@ -32,8 +32,6 @@ def classify(train_matrix, test_matrix, distance_metric, k_val, trainIDs_true):
     for inst_id in range(test_matrix.shape[0]):
         this_id_distances = all_distances[inst_id]
         votes = Counter()  # class --> votes
-        # for cla in classes:  # initialize with each class as a key --> 0
-        #     votes[cla] = 0
 
         # find k most similar (closest) training instances
         top_k_indexes = list(this_id_distances.argsort())[:k_val]  # indexes of closest vectors
@@ -46,14 +44,7 @@ def classify(train_matrix, test_matrix, distance_metric, k_val, trainIDs_true):
 
         # add instance id to most likely class
         instances_per_predictedclass[probs[0][1]].add(inst_id)  # probs[0][1] is most likely class
-
-        # # print results
-        # with open(sys.argv[5], 'w', newline="") as sys_file:
-        #     sys_file.write("IDnum" + str(inst_id) + " " + trainIDs_true[inst_id] + " ")
-        #     for item in probs:
-        #         sys_file.write(item[1] + " {:.5f}\t".format(item[0]))
-        #     sys_file.write("\n")
-
+        
     return instances_per_predictedclass
 
 
